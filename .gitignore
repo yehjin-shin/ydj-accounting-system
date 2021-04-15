@@ -1,11 +1,12 @@
 # ignore all files in the result/ directory
-result/*
+!/result/
+/result/*
 
 # ignore all files in the original/ directory
-original/*
+/original/*
 
 # but not original/제출양식.jpeg
-!original/제출양식.jpeg
+!/original/제출양식.jpeg
 
 # google drive api
 token.pickle

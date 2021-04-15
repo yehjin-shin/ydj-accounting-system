@@ -7,3 +7,11 @@ original/use/
 # google drive api
 token.pickle
 credentials.json
+
+# ipynb checkpoint
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# DS_Store
+.DS_Store
+*/.DS_Store/*

@@ -1,4 +1,4 @@
-from __future__ import print_function
+# from __future__ import print_function
 import pickle
 import os.path
 from googleapiclient.discovery import build
@@ -95,7 +95,7 @@ class Receipt:
         regularFont =ImageFont.truetype(f'{os.getcwd()}/fonts/HANBatang.ttf',36)
         smallFont =ImageFont.truetype(f'{os.getcwd()}/fonts/HANBatang.ttf',30)
 
-        target_image = Image.open(f"{os.getcwd()}/form.jpeg")
+        target_image = Image.open(f"{os.getcwd()}/form/form.jpeg")
         draw = ImageDraw.Draw(target_image)
 
         # 하우스명 기입

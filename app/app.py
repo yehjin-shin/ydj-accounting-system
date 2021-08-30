@@ -1,4 +1,4 @@
-# from __future__ import print_function
+from __future__ import print_function
 import pickle
 import os.path
 from googleapiclient.discovery import build
@@ -200,11 +200,6 @@ class Program:
         self.info.option_add("*Font", "맑은고딕 12") # 전체 폰트
 
         win.mainloop()
-
-        # info_quit_btn = tk.Button(info)
-        # info_quit_btn.config(width=btn_width, height=btn_height, text='종료', command=quit)
-        # quit_btn.pack()
-
 
     def input_df(self):
         filepath = filedialog.askopenfilename(title="파일을 선택하세요.", filetypes=(("xlsx files", "*.xlsx"), ("csv files", "*.csv")))   

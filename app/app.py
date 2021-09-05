@@ -20,17 +20,13 @@ from tkinter import filedialog
 
 class Receipt:
     def __init__(self, filepath):
-        self.filetype = filepath.split('.')[-1]
-        if self.filetype == 'csv':
-            self.raw = pd.read_csv(filepath)
-        else:
-            self.raw = pd.read_excel(filepath)
+        self.raw = pd.read_csv(filepath)
 
         SCOPES = ['https://www.googleapis.com/auth/drive']
 
         creds = None
-        if os.path.exists(f'{os.getcwd()}/token.pickle'):
-            with open(f'{os.getcwd()}/token.pickle', 'rb') as token:
+        if os.path.exists(f'token.pickle'):
+            with open(f'token.pickle', 'rb') as token:
                 creds = pickle.load(token)
                 
         # If there are no (valid) credentials available, let the user log in.
@@ -38,7 +34,7 @@ class Receipt:
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
             else:
-                flow = InstalledAppFlow.from_client_secrets_file(f'{os.getcwd()}/credentials.json', SCOPES)
+                flow = InstalledAppFlow.from_client_secrets_file(f'credentials.json', SCOPES)
                 creds = flow.run_local_server(port=0)
             # Save the credentials for the next run
             with open('token.pickle', 'wb') as token:
@@ -92,10 +88,10 @@ class Receipt:
         row_item = [685, 830, 964, 1107, 1265, 1402, 1540, 1677, 1830, 1962]
 
         # 폰트 경로와 사이즈 설정
-        regularFont =ImageFont.truetype(f'{os.getcwd()}/fonts/HANBatang.ttf',36)
-        smallFont =ImageFont.truetype(f'{os.getcwd()}/fonts/HANBatang.ttf',30)
+        regularFont =ImageFont.truetype(f'fonts/HANBatang.ttf',36)
+        smallFont =ImageFont.truetype(f'fonts/HANBatang.ttf',30)
 
-        target_image = Image.open(f"{os.getcwd()}/form/form.jpeg")
+        target_image = Image.open(f"form/form.jpeg")
         draw = ImageDraw.Draw(target_image)
 
         # 하우스명 기입
@@ -175,7 +171,7 @@ class Program:
         btn_height = 2
 
         self.input_btn = tk.Button(win)
-        self.input_btn.config(width=btn_width, height=btn_height, text='파일(xlsx, csv)을 업로드해주세요', command=self.input_df)
+        self.input_btn.config(width=btn_width, height=btn_height, text='파일(csv)을 업로드해주세요', command=self.input_df)
         self.input_btn.pack()
 
         self.path_btn = tk.Button(win)
@@ -202,7 +198,7 @@ class Program:
         win.mainloop()
 
     def input_df(self):
-        filepath = filedialog.askopenfilename(title="파일을 선택하세요.", filetypes=(("xlsx files", "*.xlsx"), ("csv files", "*.csv")))   
+        filepath = filedialog.askopenfilename(title="csv 파일을 선택하세요.", filetypes=(("csv files", "*.csv")))   
         self.receipt = Receipt(filepath)
         self.receipt.make_use_list()
         self.receipt.make_receipt_df()

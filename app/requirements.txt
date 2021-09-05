@@ -1,0 +1,31 @@
+from __future__ import print_function
+import pickle
+import os.path
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+
+import io
+import googleapiclient.http
+
+from PIL import Image,ImageDraw,ImageFont
+import os
+
+import pandas as pd
+import re
+
+import tkinter as tk
+from tkinter import ttk
+from tkinter import filedialog
+
+
+# Python 설치
+https://www.python.org/downloads/windows/
+
+# pip 설치
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py
+
+# 구글 드라이브 api 관련 모듈 설치
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+

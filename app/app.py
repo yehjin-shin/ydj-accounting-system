@@ -21,12 +21,13 @@ from tkinter import filedialog
 class Receipt:
     def __init__(self, filepath):
         self.raw = pd.read_csv(filepath)
+        self.main_path = 'app/'
 
         SCOPES = ['https://www.googleapis.com/auth/drive']
 
         creds = None
-        if os.path.exists(f'token.pickle'):
-            with open(f'token.pickle', 'rb') as token:
+        if os.path.exists(f'{self.main_path}/token.pickle'):
+            with open(f'{self.main_path}/token.pickle', 'rb') as token:
                 creds = pickle.load(token)
                 
         # If there are no (valid) credentials available, let the user log in.
@@ -34,7 +35,7 @@ class Receipt:
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
             else:
-                flow = InstalledAppFlow.from_client_secrets_file(f'credentials.json', SCOPES)
+                flow = InstalledAppFlow.from_client_secrets_file(f'{self.main_path}/credentials.json', SCOPES)
                 creds = flow.run_local_server(port=0)
             # Save the credentials for the next run
             with open('token.pickle', 'wb') as token:
@@ -88,10 +89,10 @@ class Receipt:
         row_item = [685, 830, 964, 1107, 1265, 1402, 1540, 1677, 1830, 1962]
 
         # 폰트 경로와 사이즈 설정
-        regularFont =ImageFont.truetype(f'fonts/HANBatang.ttf',36)
-        smallFont =ImageFont.truetype(f'fonts/HANBatang.ttf',30)
+        regularFont =ImageFont.truetype(f'{self.main_path}/fonts/HANBatang.ttf',36)
+        smallFont =ImageFont.truetype(f'{self.main_path}/fonts/HANBatang.ttf',30)
 
-        target_image = Image.open(f"form/form.jpeg")
+        target_image = Image.open(f"{self.main_path}/form/form.jpeg")
         draw = ImageDraw.Draw(target_image)
 
         # 하우스명 기입
@@ -198,7 +199,7 @@ class Program:
         win.mainloop()
 
     def input_df(self):
-        filepath = filedialog.askopenfilename(title="csv 파일을 선택하세요.", filetypes=(("csv files", "*.csv")))   
+        filepath = filedialog.askopenfilename(title="csv 파일을 선택하세요.", filetypes=([("csv files", "*.csv")]))   
         self.receipt = Receipt(filepath)
         self.receipt.make_use_list()
         self.receipt.make_receipt_df()

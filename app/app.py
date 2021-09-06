@@ -21,7 +21,7 @@ from tkinter import filedialog
 class Receipt:
     def __init__(self, filepath):
         self.raw = pd.read_csv(filepath)
-        self.main_path = 'app/'
+        self.main_path = ''
 
         SCOPES = ['https://www.googleapis.com/auth/drive']
 
@@ -53,6 +53,7 @@ class Receipt:
 
         df = df[['프로그램명', '인원', '계정사유', '적요', '결제일자', '금액', '가맹점명','개수']]
         self.use_list_df = pd.DataFrame(columns=['프로그램명', '인원', '계정사유', '적요', '결제일자', '금액', '가맹점명','개수'])
+        self.use_list_df.sort_values(by='결제일자', inplace=True)
 
         index = 0
         for idx, val in df.iterrows():
@@ -78,6 +79,7 @@ class Receipt:
         df['인원'] = [str(v)+" 명" for v in df['인원']]
         df['금액'] = [str(self.make_comma(v))+" 원" for v in df['금액']]
         
+        df.sort_values(by='결제일자', inplace=True)
         self.receipt_df = df
 
     def save_receipt(self, row, num, filepath):

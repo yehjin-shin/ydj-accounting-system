@@ -21,12 +21,13 @@ from tkinter import filedialog
 class Receipt:
     def __init__(self, filepath):
         self.raw = pd.read_csv(filepath)
+        self.main_path = ''
 
         SCOPES = ['https://www.googleapis.com/auth/drive']
 
         creds = None
-        if os.path.exists(f'token.pickle'):
-            with open(f'token.pickle', 'rb') as token:
+        if os.path.exists(f'{self.main_path}/token.pickle'):
+            with open(f'{self.main_path}/token.pickle', 'rb') as token:
                 creds = pickle.load(token)
                 
         # If there are no (valid) credentials available, let the user log in.
@@ -90,10 +91,10 @@ class Receipt:
         row_item = [685, 830, 964, 1107, 1265, 1402, 1540, 1677, 1830, 1962]
 
         # 폰트 경로와 사이즈 설정
-        regularFont =ImageFont.truetype(f'fonts/HANBatang.ttf',36)
-        smallFont =ImageFont.truetype(f'fonts/HANBatang.ttf',30)
+        regularFont =ImageFont.truetype(f'{self.main_path}/fonts/HANBatang.ttf',36)
+        smallFont =ImageFont.truetype(f'{self.main_path}/fonts/HANBatang.ttf',30)
 
-        target_image = Image.open(f"form/form.jpeg")
+        target_image = Image.open(f"{self.main_path}/form/form.jpeg")
         draw = ImageDraw.Draw(target_image)
 
         # 하우스명 기입
